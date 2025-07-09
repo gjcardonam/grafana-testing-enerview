@@ -1,0 +1,25 @@
+{
+  "name": "grafana-testing-enerview",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gjcardonam/grafana-testing-enerview.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gjcardonam/grafana-testing-enerview/issues"
+  },
+  "homepage": "https://github.com/gjcardonam/grafana-testing-enerview#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.53.2",
+    "@types/node": "^24.0.12"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
+  }
+}
