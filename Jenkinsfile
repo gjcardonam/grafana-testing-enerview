@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:v1.44.0-jammy'
-            args '-u root'  // para poder instalar dependencias si es necesario
-        }
-    }
+    agent any
 
     environment {
         TARGET_COMPANY = 'Blackbeard'
@@ -17,21 +12,25 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
+        stage('Setup Node.js') {
             steps {
                 sh 'npm ci'
+                sh 'npx playwright install --with-deps'
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                // Si tienes un archivo .env, asegúrate de cargarlo antes
-                sh '''
-                    if [ -f .env ]; then
-                        export $(cat .env | xargs)
-                    fi
-                    npx playwright test
-                '''
+                withCredentials([
+                    string(credentialsId: 'BLACKBEARD_USER', variable: 'BLACKBEARD_USER'),
+                    string(credentialsId: 'BLACKBEARD_PASS', variable: 'BLACKBEARD_PASS')
+                ]) {
+                    sh '''
+                        export BLACKBEARD_USER=$BLACKBEARD_USER
+                        export BLACKBEARD_PASS=$BLACKBEARD_PASS
+                        npx playwright test
+                    '''
+                }
             }
         }
     }
