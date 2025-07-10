@@ -1,15 +1,19 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.53.0-noble'
+            args '-u root'
+        }
+    }
 
     environment {
         TARGET_COMPANY = 'Blackbeard'
     }
 
     stages {
-        stage('Setup Node.js') {
+        stage('Install dependencies') {
             steps {
                 sh 'npm ci'
-                sh 'npx playwright install --with-deps'
             }
         }
 
@@ -19,7 +23,11 @@ pipeline {
                     string(credentialsId: 'BLACKBEARD_USER', variable: 'BLACKBEARD_USER'),
                     string(credentialsId: 'BLACKBEARD_PASS', variable: 'BLACKBEARD_PASS')
                 ]) {
-                    sh 'npx playwright test'
+                    sh '''
+                        export BLACKBEARD_USER=$BLACKBEARD_USER
+                        export BLACKBEARD_PASS=$BLACKBEARD_PASS
+                        npx playwright test
+                    '''
                 }
             }
         }
