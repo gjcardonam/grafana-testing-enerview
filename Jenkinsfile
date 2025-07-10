@@ -2,8 +2,8 @@ pipeline {
   agent any
 
   environment {
-    TARGET_COMPANY = 'Akakus'
-  }
+    TARGET_COMPANY = "${TARGET_COMPANY}"
+    }
 
   stages {
     stage('Checkout') {
