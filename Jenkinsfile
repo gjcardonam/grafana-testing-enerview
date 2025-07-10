@@ -45,4 +45,21 @@ ${passKey}=${env.PASS}
       }
     }
   }
+
+  post {
+    always {
+      // Publicar el reporte HTML de Playwright
+      publishHTML([
+        allowMissing: false,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'playwright-report',
+        reportFiles: 'index.html',
+        reportName: 'Reporte Playwright'
+      ])
+
+      // Opcional: guardar trazas o artefactos ZIP
+      archiveArtifacts artifacts: 'test-results/**/*.zip', fingerprint: true
+    }
+  }
 }
