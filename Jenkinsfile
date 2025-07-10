@@ -1,24 +1,27 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:v1.53.0-noble'
-            args '-u root'
-        }
-    }
+    agent any
 
     environment {
         TARGET_COMPANY = 'Blackbeard'
     }
 
     stages {
-        stage('Install dependencies') {
+        stage('Checkout') {
             steps {
-                sh 'npm ci'
+                checkout scm
             }
         }
 
-        stage('Run Playwright Tests') {
+        stage('Run Playwright in Docker') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.53.0-noble'
+                    args '-u root'
+                }
+            }
             steps {
+                sh 'npm ci'
+
                 withCredentials([
                     string(credentialsId: 'BLACKBEARD_USER', variable: 'BLACKBEARD_USER'),
                     string(credentialsId: 'BLACKBEARD_PASS', variable: 'BLACKBEARD_PASS')
