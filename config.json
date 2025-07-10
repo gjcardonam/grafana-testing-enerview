@@ -1,0 +1,112 @@
+{
+  "targets": [
+    {
+      "name": "Akakus",
+      "url": "https://akakus.enerview.site/login",
+      "user_env": "AKAKUS_USER",
+      "password_env": "AKAKUS_PASS"
+    },
+    {
+      "name": "Blackbeard",
+      "url": "https://blackbeard.enerview.site/login",
+      "user_env": "BLACKBEARD_USER",
+      "password_env": "BLACKBEARD_PASS"
+    },
+    {
+      "name": "Chord",
+      "url": "https://chord.enerview.site/login",
+      "user_env": "CHORD_USER",
+      "password_env": "CHORD_PASS"
+    },
+    {
+      "name": "Cholla",
+      "url": "https://cholla.enerview.site/login",
+      "user_env": "CHOLLA_USER",
+      "password_env": "CHOLLA_PASS"
+    },
+    {
+      "name": "CPX",
+      "url": "https://cpx.enerview.site/login",
+      "user_env": "CPX_USER",
+      "password_env": "CPX_PASS"
+    },
+    {
+      "name": "Double Eagle",
+      "url": "https://doubleeagle.enerview.site/login",
+      "user_env": "DOUBLEEAGLE_USER",
+      "password_env": "DOUBLEEAGLE_PASS"
+    },
+    {
+      "name": "Diamondback",
+      "url": "https://diamondback.enerview.site/login",
+      "user_env": "DIAMONDBACK_USER",
+      "password_env": "DIAMONDBACK_PASS"
+    },
+    {
+      "name": "Firebird",
+      "url": "https://firebird.enerview.site/login",
+      "user_env": "FIREBIRD_USER",
+      "password_env": "FIREBIRD_PASS"
+    },
+    {
+      "name": "Mewbourne",
+      "url": "https://mewbourne.enerview.site/login",
+      "user_env": "MEWBOURNE_USER",
+      "password_env": "MEWBOURNE_PASS"
+    },
+    {
+      "name": "Moriah",
+      "url": "https://moriah.enerview.site/login",
+      "user_env": "MORIAH_USER",
+      "password_env": "MORIAH_PASS"
+    },
+    {
+      "name": "Novo",
+      "url": "https://novo.enerview.site/login",
+      "user_env": "NOVO_USER",
+      "password_env": "NOVO_PASS"
+    },
+    {
+      "name": "Permian",
+      "url": "https://permian.enerview.site/login",
+      "user_env": "PERMIAN_USER",
+      "password_env": "PERMIAN_PASS"
+    },
+    {
+      "name": "Point Energy",
+      "url": "https://point.enerview.site/login",
+      "user_env": "POINTENERGY_USER",
+      "password_env": "POINTENERGY_PASS"
+    },
+    {
+      "name": "SOGC",
+      "url": "https://sogc.enerview.site/login",
+      "user_env": "SOGC_USER",
+      "password_env": "SOGC_PASS"
+    },
+    {
+      "name": "Stephens",
+      "url": "https://stephens.enerview.site/login",
+      "user_env": "STEPHENS_USER",
+      "password_env": "STEPHENS_PASS"
+    },
+    {
+      "name": "Titus",
+      "url": "https://titus.enerview.site/login",
+      "user_env": "TITUS_USER",
+      "password_env": "TITUS_PASS"
+    },
+    {
+      "name": "Upwing",
+      "url": "https://upwing.enerview.site/login",
+      "user_env": "UPWING_USER",
+      "password_env": "UPWING_PASS"
+    },
+    {
+      "name": "Vital",
+      "url": "https://vital.enerview.site/login",
+      "user_env": "VITAL_USER",
+      "password_env": "VITAL_PASS"
+    }
+  ]
+}
