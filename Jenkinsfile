@@ -1,44 +1,42 @@
 pipeline {
-    agent any
+  agent any
 
-    environment {
-        TARGET_COMPANY = 'Blackbeard'
+  environment {
+    TARGET_COMPANY = 'Akakus'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
+    stage('Prepare environment') {
+      steps {
+        script {
+          withCredentials([usernamePassword(credentialsId: 'AKAKUS_CREDS', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+            writeFile file: '.env', text: """
+TARGET_COMPANY=${env.TARGET_COMPANY}
+AKAKUS_USER=${env.USER}
+AKAKUS_PASS=${env.PASS}
+""".stripIndent()
+          }
         }
-
-        stage('Run Playwright in Docker') {
-            agent {
-                docker {
-                    image 'mcr.microsoft.com/playwright:v1.53.0-noble'
-                    args '-u root'
-                }
-            }
-            steps {
-                sh 'npm ci'
-
-                withCredentials([
-                    string(credentialsId: 'BLACKBEARD_USER', variable: 'BLACKBEARD_USER'),
-                    string(credentialsId: 'BLACKBEARD_PASS', variable: 'BLACKBEARD_PASS')
-                ]) {
-                    sh '''
-                        export BLACKBEARD_USER=$BLACKBEARD_USER
-                        export BLACKBEARD_PASS=$BLACKBEARD_PASS
-                        npx playwright test
-                    '''
-                }
-            }
-        }
+      }
     }
 
-    post {
-        always {
-            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
-        }
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
     }
+
+    stage('Run Playwright Tests') {
+      steps {
+        sh 'npx playwright install --with-deps || true'
+        sh 'npx playwright test'
+      }
+    }
+  }
 }
