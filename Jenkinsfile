@@ -44,11 +44,20 @@ ${passKey}=${env.PASS}
         sh 'npx playwright test'
       }
     }
+
+    stage('Verificar reporte') {
+      steps {
+        sh '''
+          echo "Contenido de playwright-report:"
+          ls -l playwright-report || echo "No se encontró el directorio"
+          chmod -R 755 playwright-report || true
+        '''
+      }
+    }
   }
 
   post {
     always {
-      // Publicar el reporte HTML de Playwright
       publishHTML([
         allowMissing: false,
         alwaysLinkToLastBuild: true,
@@ -58,7 +67,6 @@ ${passKey}=${env.PASS}
         reportName: 'Reporte Playwright'
       ])
 
-      // Opcional: guardar trazas o artefactos ZIP
       archiveArtifacts artifacts: 'test-results/**/*.zip', fingerprint: true
     }
   }
