@@ -12,8 +12,11 @@ test(`Login test for ${name}`, async ({ page }) => {
   await page.fill('input[name="password"]', pass);
   await page.click('button[type="submit"]');
 
-  // Verifica que se redirige correctamente
-  await expect(page).not.toHaveURL(url);
+  // Esperar que no aparezca el mensaje de error (hasta 5s)
+  await expect(page.locator('text=Invalid username or password')).toHaveCount(0, { timeout: 5000 });
+
+  // Y luego esperar que la URL cambie (hasta 10s por si es lento)
+  await expect(page).not.toHaveURL(url, { timeout: 10000 });
 
   // Verifica que no haya mensaje de error
   const error = await page.locator("text=Invalid username or password").count();
