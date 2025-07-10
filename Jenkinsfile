@@ -2,8 +2,8 @@ pipeline {
   agent any
 
   environment {
-    TARGET_COMPANY = "${TARGET_COMPANY}"
-    }
+    TARGET_COMPANY = "${params.TARGET_COMPANY}"
+  }
 
   stages {
     stage('Checkout') {
@@ -15,12 +15,18 @@ pipeline {
     stage('Prepare environment') {
       steps {
         script {
-          withCredentials([usernamePassword(credentialsId: 'AKAKUS_CREDS', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-            writeFile file: '.env', text: """
+          def company = env.TARGET_COMPANY.toUpperCase()
+          def credsId = "${company}_CREDS"
+          def userKey = "${company}_USER"
+          def passKey = "${company}_PASS"
+
+          withCredentials([usernamePassword(credentialsId: credsId, usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+            def envContent = """\
 TARGET_COMPANY=${env.TARGET_COMPANY}
-AKAKUS_USER=${env.USER}
-AKAKUS_PASS=${env.PASS}
-""".stripIndent()
+${userKey}=${env.USER}
+${passKey}=${env.PASS}
+"""
+            writeFile file: '.env', text: envContent.stripIndent()
           }
         }
       }
