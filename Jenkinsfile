@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/gjcardonam/grafana-testing-enerview.git'
-            }
-        }
-
         stage('Setup Node.js') {
             steps {
                 sh 'npm ci'
@@ -25,11 +19,7 @@ pipeline {
                     string(credentialsId: 'BLACKBEARD_USER', variable: 'BLACKBEARD_USER'),
                     string(credentialsId: 'BLACKBEARD_PASS', variable: 'BLACKBEARD_PASS')
                 ]) {
-                    sh '''
-                        export BLACKBEARD_USER=$BLACKBEARD_USER
-                        export BLACKBEARD_PASS=$BLACKBEARD_PASS
-                        npx playwright test
-                    '''
+                    sh 'npx playwright test'
                 }
             }
         }
